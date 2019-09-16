@@ -1,58 +1,62 @@
 <template>
     <div id="app">
-        This is the default entry component 12. 
+        This is the default entry component 12.
     </div>
 </template>
 <script>
-    export default {
-        name: 'app',
+import { getRandomNumberString } from '../../common/common';
 
-        components: {
+export default {
+    name: 'App',
 
-        },
+    components: {
 
-        props: {},
+    },
 
-        data () {
-            return {
+    filters: {},
 
-            };
-        },
+    props: {},
 
-        watch: {},
+    data() {
+        return {
 
-        filters: {},
+        };
+    },
 
-        computed: {
-            // ...mapGetters({
+    computed: {
+        // ...mapGetters({
 
-            // }),
-        },
+        // }),
+    },
 
-        methods: {
-            // ...mapMutations({
+    watch: {},
+    mounted() {
+        this.$nextTick(() => {
+            console.log('This is default app vue component');
+            console.log(`This is random string: ${getRandomNumberString()}`);
+        });
+    },
 
-            // })
-        },
-        mounted: function () {
-            this.$nextTick(function () {
-                a = 1;
-            });
-        },
+    created() {
 
-        created: function () {
+    },
 
-        },
+    beforeDestroy() {
 
-        beforeDestroy: function () {
+    },
 
-        }
-    };
+    methods: {
+        // ...mapMutations({
+
+        // })
+    },
+};
 </script>
 
 <style>
     #app {
-        font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB",
+        "Microsoft YaHei","微软雅黑",Arial,sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         color: #2c3e50;
@@ -64,4 +68,3 @@
         font-size: 14px;
     }
 </style>
-

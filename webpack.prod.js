@@ -8,6 +8,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 
 const setMPA = () => {
     let entry = {};
@@ -30,7 +31,11 @@ const setMPA = () => {
             new HtmlWebpackPlugin({
                 template: path.join(__dirname, 'src/template/index.html'),
                 filename: `${filename}.html`,
-                chunks: [filename],
+                chunks: [
+                    'vue',
+                    'common',
+                    filename
+                ],
                 inject: true,
                 minify: {
                     html5: true,
@@ -56,7 +61,7 @@ let {
 } = setMPA();
 
 module.exports = {
-    mode: 'production',
+    mode: 'none',
     entry: entry,
     output: {
         path: path.join(__dirname, 'dist'),
@@ -66,7 +71,7 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                use: 'babel-loader'
+                use: ['babel-loader', 'eslint-loader']
             },
             {
                 test: /\.css$/,
@@ -164,7 +169,33 @@ module.exports = {
         //     }
         // }),
         new CleanWebpackPlugin(),
-        
+        // new HtmlWebpackExternalsPlugin({
+        //     externals: [
+        //         {
+        //             module: 'vue',
+        //             entry: '//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js',
+        //             global: 'Vue'
+        //         }
+        //     ]
+        // }),
     ].concat(htmlWebpackPlugins).concat(new HTMLInlineCSSWebpackPlugin()),
-
+    optimization: {
+        splitChunks: {
+            chunks: "all",
+            minSize: 0,
+            minChunks: 1,
+            cacheGroups: {
+                common: {
+                    name: 'common',
+                    test: /(\w|\/|-|\.)*\/common\/(\w|\/|-|\.)*/,
+                    priority: 1
+                },
+                vue: {
+                    name: 'vue',
+                    test: /(vue)/,
+                    priority: -10
+                },
+            }
+        }
+    }
 };

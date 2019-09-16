@@ -1,58 +1,59 @@
 <template>
     <div id="app">
-        This is the summary component. 
+        This is the summary component.
     </div>
 </template>
 <script>
-    export default {
-        name: 'app',
+export default {
+    name: 'App',
 
-        components: {
+    components: {
 
-        },
+    },
 
-        props: {},
+    filters: {},
 
-        data () {
-            return {
+    props: {},
 
-            };
-        },
+    data() {
+        return {
 
-        watch: {},
+        };
+    },
 
-        filters: {},
+    computed: {
+        // ...mapGetters({
 
-        computed: {
-            // ...mapGetters({
+        // }),
+    },
 
-            // }),
-        },
+    watch: {},
+    mounted() {
+        this.$nextTick(() => {
+            console.log('This is summary app vue component');
+        });
+    },
 
-        methods: {
-            // ...mapMutations({
+    created() {
 
-            // })
-        },
-        mounted: function () {
-            this.$nextTick(function () {
+    },
 
-            });
-        },
+    beforeDestroy() {
 
-        created: function () {
+    },
 
-        },
+    methods: {
+        // ...mapMutations({
 
-        beforeDestroy: function () {
-
-        }
-    };
+        // })
+    },
+};
 </script>
 
 <style>
     #app {
-        font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB",
+        "Microsoft YaHei","微软雅黑",Arial,sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         color: #2c3e50;
@@ -64,4 +65,3 @@
         font-size: 14px;
     }
 </style>
-

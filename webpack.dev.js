@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 'use stick';
 
 const path = require('path');
@@ -47,9 +49,9 @@ const setMPA = () => {
     };
 };
 
-let {
+const {
     entry,
-    htmlWebpackPlugins
+    htmlWebpackPlugins,
 } = setMPA();
 
 module.exports = {
@@ -57,7 +59,7 @@ module.exports = {
     entry: entry,
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: '[name].js'
+        filename: '[name].js',
     },
     // watch: true,
     // watchOptions: {
@@ -67,7 +69,10 @@ module.exports = {
     // },
     module: {
         rules: [
-            {test: /\.js$/, use: 'babel-loader'},
+            {
+                test: /\.js$/,
+                use: ['babel-loader', 'eslint-loader']
+            },
             {test: /\.css$/, use: ['style-loader', 'css-loader']},
             {test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader']},
             {
@@ -85,7 +90,7 @@ module.exports = {
             },
             {
                 test: /\.vue$/,
-                use: 'vue-loader'
+                use: ['vue-loader', 'eslint-loader'],
             },
         ],
     },
@@ -95,7 +100,7 @@ module.exports = {
     ].concat(htmlWebpackPlugins),
     devServer: {
         contentBase: './',
-        hot: true
+        hot: true,
     },
-    devtool: 'cheap-eval-source-map'
+    devtool: 'cheap-eval-source-map',
 };
